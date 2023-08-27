@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora en la Web</title>
+    <style>
+        /* Estilos CSS (igual que en la versión anterior) */
+        /* ... */
+    </style>
+</head>
+<body>
+    <h1>Calculadora en la Web</h1>
+    
+    <label for="x_value">Valor X:</label>
+    <input type="number" id="x_value" required>
+    
+    <label for="num_y">Número de casillas Y:</label>
+    <input type="number" id="num_y" required>
+    
+    <label for="range">Rango (min-max):</label>
+    <input type="text" id="range" required>
+    
+    <button onclick="calculate()">Calcular</button>
+    
+    <div id="results"></div>
+
+    <script>
+        // Función de cálculo
+        function calculate() {
+            const xValue = parseInt(document.getElementById('x_value').value);
+            const numY = parseInt(document.getElementById('num_y').value);
+            const rangeInput = document.getElementById('range').value;
+            const [minRange, maxRange] = rangeInput.split('-').map(parseFloat);
+
+            if (minRange > maxRange) {
+                [minRange, maxRange] = [maxRange, minRange];
+            }
+
+            const yValues = [];
+            let totalSum = 0;
+
+            for (let i = 0; i < numY - 1; i++) {
+                const randomNumber = Math.floor(Math.random() * (maxRange - minRange + 1)) + minRange;
+                yValues.push(randomNumber);
+                totalSum += randomNumber;
+            }
+
+            yValues.push(xValue - totalSum);  // Último valor para completar la suma
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h2>Resultados:</h2>
+                <p>Valor X: ${xValue}</p>
+                <p>Número de casillas Y: ${numY}</p>
+                <p>Rango: ${minRange}-${maxRange}</p>
+                <p>Casillas Y: ${yValues.join(', ')}</p>
+                <p>Total: ${totalSum + (xValue - totalSum)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
+
+
