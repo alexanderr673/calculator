@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Calculadora en la Web</title>
@@ -23,6 +23,12 @@
     
     <div id="results"></div>
 
+    <div>
+        <h2>Reloj</h2>
+        <p id="time"></p>
+        <p id="date"></p>
+    </div>
+
     <script>
         // Función de cálculo
         function calculate() {
@@ -39,9 +45,7 @@
             let totalSum = 0;
 
             for (let i = 0; i < numY - 1; i++) {
-                const minRandom = Math.max(minRange, xValue - totalSum - (maxRange * (numY - i - 1)));
-                const maxRandom = Math.min(maxRange, xValue - totalSum - (minRange * (numY - i - 1)));
-                const randomNumber = Math.floor(Math.random() * (maxRandom - minRandom + 1)) + minRandom;
+                const randomNumber = Math.floor(Math.random() * (maxRange - minRange + 1)) + minRange;
                 yValues.push(randomNumber);
                 totalSum += randomNumber;
             }
@@ -58,6 +62,24 @@
                 <p>Total: ${totalSum + (xValue - totalSum)}</p>
             `;
         }
+
+        // Código del reloj
+        const time = document.getElementById('time');
+        const date = document.getElementById('date');
+
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const interval = setInterval(() => {
+            const local = new Date();
+            let day = local.getDate(),
+                month = local.getMonth(),
+                year = local.getFullYear();
+
+            time.innerHTML = local.toLocaleTimeString();
+            date.innerHTML = `${day} ${monthNames[month]} ${year}`;
+        }, 1000);
     </script>
 </body>
 </html>
