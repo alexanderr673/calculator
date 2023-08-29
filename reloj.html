@@ -22,11 +22,10 @@
     <button onclick="calculate()">Calcular</button>
     
     <div id="results"></div>
-
-    <div>
-        <h2>Reloj</h2>
-        <p id="time"></p>
-        <p id="date"></p>
+    
+    <div id="clock">
+        <div id="time"></div>
+        <div id="date"></div>
     </div>
 
     <script>
@@ -50,7 +49,7 @@
                 totalSum += randomNumber;
             }
 
-            yValues.push(Math.max(0, xValue - totalSum));  // Último valor para completar la suma
+            yValues.push(xValue - totalSum);  // Último valor para completar la suma
 
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = `
@@ -59,12 +58,9 @@
                 <p>Número de casillas Y: ${numY}</p>
                 <p>Rango: ${minRange}-${maxRange}</p>
                 <p>Casillas Y: ${yValues.join(', ')}</p>
-                <p>Total: ${totalSum + Math.max(0, xValue - totalSum)}</p>
+                <p>Total: ${totalSum + (xValue - totalSum)}</p>
             `;
         }
-
-        // Código del reloj (igual que en la versión anterior)
-        /* ... */
 
         // Reloj
         const time = document.getElementById('time');
